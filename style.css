@@ -1027,67 +1027,313 @@ li.done .completed-date {
 /* 반응형 레이아웃 */
 @media (max-width: 768px) {
   body {
-    padding: 16px;
+    padding: 12px;
+    font-size: 14px;
   }
   
   .container {
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
   }
   
   .main-content {
     max-width: none;
+    width: 100%;
   }
   
   .deadline-alert {
     width: 100%;
     position: static;
     order: -1;
+    margin-bottom: 16px;
   }
   
   h1 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+    font-size: 1.6rem;
+    margin-bottom: 16px;
   }
   
+  /* 폼 스타일 모바일 최적화 */
   #todo-form {
     flex-direction: column;
     gap: 12px;
+    padding: 16px;
+  }
+  
+  #todo-input, #todo-deadline {
+    min-width: auto;
+    width: 100%;
+    flex: none;
+  }
+  
+  #todo-form button {
+    min-width: auto;
+    width: 100%;
   }
   
   .repeat-options {
     flex-direction: column;
     align-items: flex-start;
     gap: 8px;
+    width: 100%;
   }
   
-  #sub-goal-form {
+  .repeat-days {
+    width: 100%;
+  }
+  
+  .day-checkboxes {
+    gap: 8px;
+  }
+  
+  .day-checkboxes label {
+    padding: 8px 12px;
+    font-size: 12px;
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+  }
+  
+  /* 목록 스타일 모바일 최적화 */
+  li {
+    padding: 12px 16px;
     flex-direction: column;
-    gap: 12px;
+    align-items: flex-start;
+    gap: 8px;
   }
   
+  .todo-content {
+    width: 100%;
+  }
+  
+  .todo-actions {
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+  }
+  
+  .edit-main-btn, .delete-main-btn {
+    min-width: 50px;
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+  
+  .progress-count {
+    font-size: 12px;
+    min-width: 40px;
+    padding: 4px 8px;
+  }
+  
+  /* 모달 스타일 모바일 최적화 */
   .modal-content {
-    margin: 10% auto;
+    margin: 5% auto;
     width: 95%;
+    max-height: 90vh;
   }
   
   .modal-header {
     padding: 16px 20px;
   }
   
+  .modal-header h2 {
+    font-size: 18px;
+  }
+  
   .modal-body {
-    padding: 20px;
+    padding: 16px;
   }
   
-  .todo-actions {
+  .main-goal, .progress-info, .sub-goals {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .main-goal h3, .sub-goals h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  /* 소목표 폼 모바일 최적화 */
+  #sub-goal-form {
     flex-direction: column;
-    gap: 6px;
-    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 16px;
   }
   
-  .edit-main-btn, .delete-main-btn {
-    min-width: 50px;
-    padding: 4px 8px;
+  #sub-goal-input, #sub-goal-deadline {
+    min-width: auto;
+    width: 100%;
+    flex: none;
+  }
+  
+  #sub-goal-form button {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  #sub-goal-form .repeat-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  #sub-goal-form .day-checkboxes {
+    gap: 8px;
+  }
+  
+  #sub-goal-form .day-checkboxes label {
+    padding: 8px 12px;
     font-size: 12px;
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+  }
+  
+  /* 소목표 리스트 모바일 최적화 */
+  #sub-goal-list li {
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  #sub-goal-list .sub-goal-content {
+    width: 100%;
+  }
+  
+  #sub-goal-list > div {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: flex-end;
+  }
+  
+  .edit-btn, .toggle-btn, .delete-btn {
+    min-width: 50px;
+    padding: 6px 10px;
+    font-size: 12px;
+    margin-left: 4px;
+  }
+  
+  /* 편집 모달 모바일 최적화 */
+  .edit-modal-content {
+    margin: 10% auto;
+    width: 95%;
+  }
+  
+  .edit-modal-header {
+    padding: 16px 20px;
+  }
+  
+  .edit-modal-header h3 {
+    font-size: 16px;
+  }
+  
+  .edit-modal-body {
+    padding: 16px;
+  }
+  
+  .edit-form {
+    gap: 12px;
+  }
+  
+  .edit-form input {
+    height: 40px;
+    font-size: 14px;
+  }
+  
+  .edit-form .repeat-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+  
+  .edit-form .day-checkboxes {
+    gap: 8px;
+  }
+  
+  .edit-form .day-checkboxes label {
+    padding: 8px 12px;
+    font-size: 12px;
+    flex: 1;
+    justify-content: center;
+    min-width: 0;
+  }
+  
+  .edit-form-buttons {
+    gap: 8px;
+  }
+  
+  .edit-form-buttons button {
+    height: 40px;
+    font-size: 14px;
+  }
+  
+  /* 삭제 모달 모바일 최적화 */
+  .delete-modal-content {
+    margin: 20% auto;
+    width: 95%;
+  }
+  
+  .delete-modal-header {
+    padding: 16px 20px;
+  }
+  
+  .delete-modal-header h3 {
+    font-size: 16px;
+  }
+  
+  .delete-modal-body {
+    padding: 16px;
+  }
+  
+  .delete-modal-body p {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .delete-form-buttons {
+    gap: 8px;
+  }
+  
+  .delete-form-buttons button {
+    height: 40px;
+    font-size: 14px;
+    max-width: 100px;
+  }
+  
+  /* 마감일 알림 모바일 최적화 */
+  .deadline-alert {
+    padding: 16px;
+  }
+  
+  .deadline-alert h3 {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  
+  .deadline-item {
+    padding: 10px;
+    margin-bottom: 6px;
+    font-size: 13px;
+  }
+  
+  .deadline-item .goal-type {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+  
+  .deadline-item .goal-text {
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+  
+  .deadline-item .deadline-date {
+    font-size: 11px;
   }
 }

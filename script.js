@@ -58,6 +58,7 @@ function calculateProgress(todo) {
     return { completed: 0, total: 0, percentage: 0 };
   }
   
+  // 완료된 소목표만 카운트
   const completed = todo.subGoals.filter(subGoal => subGoal.done).length;
   const total = todo.subGoals.length;
   const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
@@ -70,6 +71,7 @@ function isOverdue(dateString) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const deadline = new Date(dateString);
+  deadline.setHours(0, 0, 0, 0);
   return deadline < today;
 }
 
@@ -78,6 +80,7 @@ function isToday(dateString) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const deadline = new Date(dateString);
+  deadline.setHours(0, 0, 0, 0);
   return deadline.getTime() === today.getTime();
 }
 
@@ -380,6 +383,10 @@ function addSubGoal(text) {
   saveTodos();
   renderSubGoals();
   updateProgress();
+  
+  // 소목표 추가 시 대목표 완료 상태 다시 체크
+  checkMainGoalCompletion();
+  
   renderTodos(); // 메인 목록의 진행률 업데이트
   
   // 입력 필드 초기화
@@ -414,7 +421,7 @@ function toggleSubGoal(index) {
     delete subGoal.completedDate;
   }
   
-  // 대목표 자동 완료 체크
+  // 대목표 자동 완료 체크 (새로운 소목표 생성 전에 체크)
   checkMainGoalCompletion();
   
   saveTodos();
@@ -448,7 +455,7 @@ function checkMainGoalCompletion() {
   const progress = calculateProgress(todo);
   
   // 모든 소목표가 완료되면 대목표도 완료
-  if (progress.percentage === 100 && !todo.done) {
+  if (progress.completed > 0 && progress.completed === progress.total && !todo.done) {
     todo.done = true;
     todo.completedDate = new Date().toISOString().split('T')[0];
     
@@ -462,7 +469,7 @@ function checkMainGoalCompletion() {
     }
   } 
   // 하나라도 미완료가 되면 대목표도 미완료
-  else if (progress.percentage < 100 && todo.done) {
+  else if (progress.completed < progress.total && todo.done) {
     todo.done = false;
     delete todo.completedDate;
   }
@@ -483,6 +490,9 @@ function createNextRepeatingMainGoal() {
   
   // 새로운 대목표를 목록에 추가
   todos.push(newTodo);
+  
+  // 현재 모달 인덱스를 새로 생성된 대목표로 변경
+  currentTodoIndex = todos.length - 1;
 }
 
 function deleteSubGoal(index) {
@@ -529,6 +539,10 @@ function confirmDelete() {
     saveTodos();
     renderSubGoals();
     updateProgress();
+    
+    // 소목표 삭제 시 대목표 완료 상태 다시 체크
+    checkMainGoalCompletion();
+    
     renderTodos();
   }
   
@@ -608,6 +622,10 @@ function saveEdit() {
     saveTodos();
     renderSubGoals();
     updateProgress();
+    
+    // 소목표 편집 시 대목표 완료 상태 다시 체크
+    checkMainGoalCompletion();
+    
     renderTodos();
   }
   
