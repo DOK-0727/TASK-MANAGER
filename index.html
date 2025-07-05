@@ -16,12 +16,148 @@
 
 <body>
   <div class="container">
-    <h1>TASK MANGER</h1>
-    <form id="todo-form">
-      <input type="text" id="todo-input" placeholder=" 목표를 입력하세요." required />
-      <button type="submit">추가</button>
-    </form>
-    <ul id="todo-list"></ul>
+    <div class="main-content">
+      <form id="todo-form">
+        <input type="text" id="todo-input" placeholder=" 목표를 입력하세요." required />
+        <input type="date" id="todo-deadline" />
+        <div class="repeat-options">
+          <label>
+            <input type="checkbox" id="todo-repeat" />
+            반복 목표
+          </label>
+          <div id="repeat-days" class="repeat-days" style="display: none;">
+            <div class="day-checkboxes">
+              <label><input type="checkbox" value="monday" />월</label>
+              <label><input type="checkbox" value="tuesday" />화</label>
+              <label><input type="checkbox" value="wednesday" />수</label>
+              <label><input type="checkbox" value="thursday" />목</label>
+              <label><input type="checkbox" value="friday" />금</label>
+              <label><input type="checkbox" value="saturday" />토</label>
+              <label><input type="checkbox" value="sunday" />일</label>
+            </div>
+          </div>
+        </div>
+        <button type="submit">추가</button>
+      </form>
+      <ul id="todo-list"></ul>
+    </div>
+    
+    <!-- 마감일 알림 창 -->
+    <div id="deadline-alert" class="deadline-alert">
+      <h3>⚠️ 마감일 알림</h3>
+      <div id="deadline-content"></div>
+    </div>
+  </div>
+
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title">대목표 상세보기</h2>
+        <span class="close">&times;</span>
+      </div>
+      <div class="modal-body">
+        <div class="main-goal">
+          <h3>대목표</h3>
+          <p id="main-goal-text"></p>
+          <div class="deadline-info">
+            <span>달성 기간: </span>
+            <span id="main-goal-deadline"></span>
+          </div>
+        </div>
+        <div class="progress-info">
+          <p class="progress-text" id="progress-text">진행률: 0/0 (0%)</p>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+        </div>
+        <div class="sub-goals">
+          <h3>소목표</h3>
+          <form id="sub-goal-form">
+            <input type="text" id="sub-goal-input" placeholder="소목표를 입력하세요." required />
+            <input type="date" id="sub-goal-deadline" />
+            <div class="repeat-options">
+              <label>
+                <input type="checkbox" id="sub-goal-repeat" />
+                반복 목표
+              </label>
+              <div id="sub-goal-repeat-days" class="repeat-days" style="display: none;">
+                <div class="day-checkboxes">
+                  <label><input type="checkbox" value="monday" />월</label>
+                  <label><input type="checkbox" value="tuesday" />화</label>
+                  <label><input type="checkbox" value="wednesday" />수</label>
+                  <label><input type="checkbox" value="thursday" />목</label>
+                  <label><input type="checkbox" value="friday" />금</label>
+                  <label><input type="checkbox" value="saturday" />토</label>
+                  <label><input type="checkbox" value="sunday" />일</label>
+                </div>
+              </div>
+            </div>
+            <button type="submit">추가</button>
+          </form>
+          <ul id="sub-goal-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 편집 모달 -->
+  <div id="edit-modal" class="edit-modal">
+    <div class="edit-modal-content">
+      <div class="edit-modal-header">
+        <h3 id="edit-modal-title">편집</h3>
+        <span class="close" onclick="closeEditModal()">&times;</span>
+      </div>
+      <div class="edit-modal-body">
+        <form id="edit-form" class="edit-form">
+          <div>
+            <label for="edit-text">목표</label>
+            <input type="text" id="edit-text" required />
+          </div>
+          <div>
+            <label for="edit-deadline">달성 기간</label>
+            <input type="date" id="edit-deadline" />
+          </div>
+          <div class="repeat-options">
+            <label>
+              <input type="checkbox" id="edit-repeat" />
+              반복 목표
+            </label>
+            <div id="edit-repeat-days" class="repeat-days" style="display: none;">
+              <div class="day-checkboxes">
+                <label><input type="checkbox" value="monday" />월</label>
+                <label><input type="checkbox" value="tuesday" />화</label>
+                <label><input type="checkbox" value="wednesday" />수</label>
+                <label><input type="checkbox" value="thursday" />목</label>
+                <label><input type="checkbox" value="friday" />금</label>
+                <label><input type="checkbox" value="saturday" />토</label>
+                <label><input type="checkbox" value="sunday" />일</label>
+              </div>
+            </div>
+          </div>
+          <div class="edit-form-buttons">
+            <button type="button" class="cancel-btn" onclick="closeEditModal()">취소</button>
+            <button type="submit" class="save-btn">저장</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 삭제 확인 모달 -->
+  <div id="delete-modal" class="delete-modal">
+    <div class="delete-modal-content">
+      <div class="delete-modal-header">
+        <h3>삭제 확인</h3>
+        <span class="close" onclick="closeDeleteModal()">&times;</span>
+      </div>
+      <div class="delete-modal-body">
+        <p id="delete-message">정말로 이 항목을 삭제하시겠습니까?</p>
+        <div class="delete-form-buttons">
+          <button type="button" class="cancel-btn" onclick="closeDeleteModal()">취소</button>
+          <button type="button" class="delete-confirm-btn" onclick="confirmDelete()">삭제</button>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="script.js"></script>
