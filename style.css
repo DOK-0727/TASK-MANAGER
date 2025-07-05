@@ -1,0 +1,37 @@
+body {
+  background-color: #f3f3f3;
+}
+
+#todo-input {
+  width: 100px;
+  height: 30px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+li {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li.done {
+  background-color: #e0e0e0;
+  text-decoration: line-through;
+  color: #888;
+}
+
+.todo-text {
+  flex-grow: 1;
+  font-size: 16px;
+}
