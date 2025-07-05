@@ -3,8 +3,20 @@ body {
 }
 
 #todo-input {
+  width: 200px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+  background-color: #d9d9d9;
+}
+
+button {
   width: 100px;
   height: 30px;
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  background-color: #03aeff;
 }
 
 ul {
